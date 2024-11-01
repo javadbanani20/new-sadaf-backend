@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('national_code');
             $table->string('phone');
             $table->string('birthday_date');
+            $table->string('address');
             $table->timestamps();
         });
     }
