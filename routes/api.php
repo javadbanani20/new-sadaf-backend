@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('product/store',[\App\Http\Controllers\ProductController::class,'StoreProduct']);
-Route::post('admin',[\App\Http\Controllers\AdminController::class,'Admin']);
 Route::get('product/{product:id}/show',[\App\Http\Controllers\ProductController::class,'show']);
 Route::get('product/list',[\App\Http\Controllers\ProductController::class,'showList']);
+Route::put('product/{product}/update',[\App\Http\Controllers\ProductController::class,'update']);
+Route::delete('product/{product}/delete',[\App\Http\Controllers\ProductController::class,'delete']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+   /* return $request->user();*/
 });

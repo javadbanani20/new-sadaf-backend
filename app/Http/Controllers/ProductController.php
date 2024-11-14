@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductUpdateRequest;
 use App\Http\Requests\StoreProduct;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductUpdateResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -85,5 +87,22 @@ class ProductController extends Controller
 
 
 
+    }
+
+    public function update(ProductUpdateRequest $productUpdateRequest,Product $product)
+    {
+    $product->update($productUpdateRequest->all());
+    return response()->json([
+        "message"=>'اطلاعات لیست بروزرسانی شد',
+        "data"=>new ProductUpdateResource($product)
+    ],200);
+    }
+
+    public function delete(Product $product)
+    {
+        $product->delete();
+        return response()->json([
+            "message"=>'لیست موردنظر حذف شد',
+        ],200);
     }
 }
