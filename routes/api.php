@@ -19,6 +19,12 @@ Route::get('product/{product:id}/show',[\App\Http\Controllers\ProductController:
 Route::get('product/list',[\App\Http\Controllers\ProductController::class,'showList']);
 Route::put('product/{product}/update',[\App\Http\Controllers\ProductController::class,'update']);
 Route::delete('product/{product}/delete',[\App\Http\Controllers\ProductController::class,'delete']);
+
+
+Route::post('auth/check/user/exist' ,[\App\Http\Controllers\UserController::class,'checkUser']);
+//Route::post('auth/check/user/otp' , [\App\Http\Controllers\User\Userontroller::class , 'checkOtp']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
    /* return $request->user();*/
 });
+
+
