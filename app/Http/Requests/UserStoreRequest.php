@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CheckOtpCodeRequest extends FormRequest
+class UserStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,12 @@ class CheckOtpCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mobile' => 'required| min:11','max:11',
-            'code' => 'required'
+            'name'=>['required'],
+            'family'=>['required'],
+            'national_code'=>['required'],
+            'mobile'=>['required'],
+            'email'=>['required'],
+            'password'=>['required'],
         ];
     }
 }

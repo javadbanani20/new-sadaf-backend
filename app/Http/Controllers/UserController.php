@@ -1,18 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\users;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckOtpCodeRequest;
 use App\Http\Requests\OtpUserCodeRequest;
+use App\Http\Requests\UserStoreRequest;
 use App\Http\Resources\userOtpResource;
 use App\Http\Resources\UserResource;
-use App\Models\OtpCode;
+use App\Models\Otp;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function store(UserStoreRequest $userStoreRequest)
+    {
+    User::created($userStoreRequest->all());
+    }
     public function checkUser(OtpUserCodeRequest $otpUserCodeRequest)
     {
         $user = User:: where('mobile' , $otpUserCodeRequest->mobile)->first();
@@ -22,7 +27,7 @@ class UserController extends Controller
 
             $OtpCode =   mt_rand('1000', '9999');
 
-            $user_otp =  OtpCode::updateOrCreate(
+            $user_otp =  Otp::updateOrCreate(
                 ['mobile' => $user->mobile],
                 ['code' => $OtpCode],
 
@@ -45,7 +50,7 @@ class UserController extends Controller
 
     public function checkOtp(CheckOtpCodeRequest $checkOtpCodeRequest)
     {
-        $user_ckeck_exits = OtpCode::where('mobile' , $checkOtpCodeRequest->mobile)
+        $user_ckeck_exits = Otp::where('mobile' , $checkOtpCodeRequest->mobile)
             ->where('code' , $checkOtpCodeRequest->code)->first();
 
         if ($user_ckeck_exits) {
@@ -67,7 +72,7 @@ class UserController extends Controller
         }else {
             return response()->json([
                 'message' => 'ورود کاربر نا موفق بود',
-            ] );
+            ] ,318);
         }
     }
 
@@ -78,7 +83,7 @@ class UserController extends Controller
             'message' =>  'اطلاعات کاربر با موفقیت یافت شد',
             'date' => new UserResource($User),
 
-        ]);
+        ],200);
     }
 
 
